@@ -57,3 +57,21 @@ namespace ClinetEmployee
     }
 
 }
+/*create database db;
+
+
+use db;
+CREATE TABLE [dbo].[Employees](
+	[EmployeesId] [int] IDENTITY(1,1) NOT NULL,
+	[FirstName] [varchar](200) NOT NULL,
+	[LastName] [varchar](200)NOT NULL,
+	[Email] [varchar](200) NOT NULL,
+	[PhoneNumber] [varchar](200) NOT NULL,
+	)
+drop table Employees;
+INSERT INTO Employees ( FirstName, LastName, Email, PhoneNumber)
+VALUES ( 'mohammed', 'massowd', 'mohammed@massowd.com', '774785445');
+
+INSERT INTO Employees ( FirstName, LastName, Email, PhoneNumber)
+VALUES ('taha', 'massowd', 'taha@massowd.com', '774785446');
+*/
