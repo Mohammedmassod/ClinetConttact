@@ -15,7 +15,7 @@ namespace ClinetEmployee
         {
             //start-show
 
-            /*HttpClient client = new HttpClient();
+            HttpClient client = new HttpClient();
             var responseTask = client.GetAsync("https://localhost:44372/api/Employees");
             responseTask.Wait();
             if (responseTask.IsCompleted)
@@ -30,7 +30,7 @@ namespace ClinetEmployee
 
                 }
 
-            }*/
+            }
 
             //end-show
 
@@ -48,36 +48,11 @@ namespace ClinetEmployee
 
             //
 
-            /* string url = "https://localhost:44372/api/Employees?id=6";
-             using (HttpClient client = new HttpClient())
-             {
-                 HttpResponseMessage response = await client.DeleteAsync(url);
-                 Console.WriteLine(response.StatusCode.ToString());
-             }*/
             //
 
             //
-            var pepoleurl = "https://localhost:44372/api/Employees";
-            using (var httpClient = new HttpClient())
-            {
-                var Employees = new Employees() { EmployeesId = 7, FirstName = "mohsin", LastName = "saleh", Email = "mohsin@saleh.com", PhoneNumber = "774786554" };
-                //create the employees
-                var responseMessage = await httpClient.PostAsJsonAsync(pepoleurl, Employees);
-                responseMessage.EnsureSuccessStatusCode();
-                var contect = await responseMessage.Content.ReadAsStringAsync();
-                var EmployeesId = int.Parse(contect);
-
-                // Http PUT
-                Employees.EmployeesId = EmployeesId;
-                Employees.FirstName = "UpDate";
-                await httpClient.PutAsJsonAsync($"(pepoleurl)/(Employees)", Employees);
-
-                var people = await httpClient.GetFromJsonAsync<List<Employees>>(pepoleurl);
-
-                await httpClient.DeleteAsync($"(pepoleurl)/(Employees)", EmployeesId);
-                var people2 = await httpClient.GetFromJsonAsync<List<Employees>>(pepoleurl);
-            }
-                //
+           
+            //
         }
     }
 
