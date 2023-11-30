@@ -96,11 +96,11 @@ namespace ClinetEmployee
 
             //بداية كود التعديل 
 
-          /*  var client = new HttpClient();
+            var client = new HttpClient();
             var contact = new Contact
             {
                 // قم بتحديث البيانات التي ترغب في تعديلها في كائن Contact هنا
-                ContactId = 3, // تحديد رقم الاتصال الذي تريد تعديله
+                ContactId = 1007, // تحديد رقم الاتصال الذي تريد تعديله
                 FirstName = "ali",
                 LastName = "nasser",
                 Email = "ali@ali.com",
@@ -130,41 +130,87 @@ namespace ClinetEmployee
 
                 // إجراءات للتعامل مع الخطأ
             }
-*/
+
 
             //نهاية كود التعديل
 
             //بداية كود الجلب بالرقم
 
             // رقم جهة الاتصال التي تريد جلب بياناتها
-            int contactId = 1007; // يمكنك تغييرها إلى الرقم المطلوب
+            /*  int contactId = 1007; // يمكنك تغييرها إلى الرقم المطلوب
 
-            // رابط الطلب لجلب بيانات جهة الاتصال
-            string apiUrl = $"https://localhost:7101/api/Contact/{contactId}";
+              // رابط الطلب لجلب بيانات جهة الاتصال
+              string apiUrl = $"https://localhost:7101/api/Contact/{contactId}";
 
-            // إعداد طلب HTTP GET
-            using (var httpClient = new HttpClient())
-            {
-                // إرسال طلب HTTP GET
-                var getResponse = await httpClient.GetAsync(apiUrl);
+              // إعداد طلب HTTP GET
+              using (var httpClient = new HttpClient())
+              {
+                  // إرسال طلب HTTP GET
+                  var getResponse = await httpClient.GetAsync(apiUrl);
 
-                if (getResponse.IsSuccessStatusCode)
-                {
-                    // قراءة البيانات المسترجعة
-                    var responseBody = await getResponse.Content.ReadAsStringAsync();
-                    Console.WriteLine($"بيانات جهة الاتصال: {responseBody}");
-                    // يمكنك تحويل البيانات النصية إلى كائن Contact هنا إذا كنت ترغب
-                }
-                else
-                {
-                    Console.WriteLine($"فشل في جلب بيانات جهة الاتصال. الرمز الناتج: {getResponse.StatusCode}");
-                    // يمكنك إضافة تعليمات في حالة حدوث أي خطأ أثناء جلب البيانات هنا
-                }
-            }
+                  if (getResponse.IsSuccessStatusCode)
+                  {
+                      // قراءة البيانات المسترجعة
+                      var responseBody = await getResponse.Content.ReadAsStringAsync();
+                      Console.WriteLine($"بيانات جهة الاتصال: {responseBody}");
+                      // يمكنك تحويل البيانات النصية إلى كائن Contact هنا إذا كنت ترغب
+                  }
+                  else
+                  {
+                      Console.WriteLine($"فشل في جلب بيانات جهة الاتصال. الرمز الناتج: {getResponse.StatusCode}");
+                      // يمكنك إضافة تعليمات في حالة حدوث أي خطأ أثناء جلب البيانات هنا
+                  }
+              }
 
-            Console.ReadLine(); // هذا السطر يجبر البرنامج على الانتظار قبل الإغلاق
-
+              Console.ReadLine(); // هذا السطر يجبر البرنامج على الانتظار قبل الإغلاق
+  */
             //نهاية كود الجلب بالرقم
+
+
+            //كود التحديث الجزئي>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+            // البيانات التي تريد تحديثها (قم بتغيير القيم حسب احتياجاتك)
+            /*  var updatedFields = new
+              {
+                  firstName = "John",
+                  email = "john.doe@example.com"
+              };
+
+              // رقم جهة الاتصال التي تريد تعديل بعض حقولها
+              int contactId = 1007; // قم بتغييرها لتناسب رقم الجهة التي تريد تحديث حقولها
+
+              // رابط الطلب لتحديث البيانات جزئيًا
+              string apiUrl = $"https://localhost:7101/api/Contact/{contactId}"; // قم بتغيير الرابط حسب العنوان الصحيح
+
+              // تحويل البيانات إلى JSON
+              var jsonData = JsonConvert.SerializeObject(updatedFields);
+
+              // إعداد طلب HTTP PATCH
+              using (var httpClient = new HttpClient())
+              {
+                  // إعداد الطلب بنوعية PATCH وتعيين البيانات ورأس الطلب
+                  var patchRequest = new HttpRequestMessage(new HttpMethod("PATCH"), apiUrl);
+                  patchRequest.Content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                  // إرسال طلب HTTP PATCH
+                  var patchResponse = await httpClient.SendAsync(patchRequest);
+
+                  if (patchResponse.IsSuccessStatusCode)
+                  {
+                      Console.WriteLine($"Success");
+                      Console.ReadLine(); // هذا السطر يجبر البرنامج على الانتظار قبل الإغلاق
+
+                      // يمكنك إضافة تعليمات إضافية هنا بعد نجاح التحديث الجزئي
+                  }
+                  else
+                  {
+                      Console.WriteLine($"Fiald {patchResponse.StatusCode}");
+                      Console.ReadLine(); // هذا السطر يجبر البرنامج على الانتظار قبل الإغلاق
+
+                      // يمكنك إضافة تعليمات أو إجراءات إضافية في حالة فشل التحديث الجزئي
+                  }
+              }*/
 
 
 
