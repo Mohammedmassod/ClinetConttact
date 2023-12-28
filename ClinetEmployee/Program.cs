@@ -9,6 +9,8 @@ namespace ClinetContact
 {
     public class Program
     {
+       // private const string ApiKey = "6D5D1ABA-4F78-4DD3-A69D-C2D15F2E259A,709C95E7-F59D-4CC4-9638-4CDE30B2FCFD"; // قم بتغيير القيمة لتكون الـ API Key الخاص بك
+
         private static readonly HttpClient client = new HttpClient();
 
         static async Task Main(string[] args)
@@ -53,9 +55,27 @@ namespace ClinetContact
             }
         }
 
+        //دالة التحقق من المفتاح
+       /* private static bool CheckApiKey(string apiKey)
+        {
+            var apiKeyHeader = client.DefaultRequestHeaders.Authorization?.Parameter;
+            if (string.IsNullOrWhiteSpace(apiKeyHeader) || !apiKeyHeader.Equals($"Bearer {apiKey}"))
+            {
+                return false;
+            }
+            return true;
+        }*/
+
+
         // الدالة لإضافة جهة اتصال جديدة
         static async Task AddContact()
         {
+           /* if (!CheckApiKey(ApiKey))
+            {
+                Console.WriteLine("Unauthorized! Please provide a valid API Key.");
+                return;
+            }*/
+
             Console.WriteLine("Enter first name:");
             string firstName = Console.ReadLine();
 
@@ -77,7 +97,7 @@ namespace ClinetContact
                 phoneNumber
             };
 
-            string url = "https://localhost:7101/api/Contact";
+            string url = "https://localhost:44333/api/users";
             var content = new StringContent(JsonConvert.SerializeObject(newContact), System.Text.Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync(url, content);
@@ -94,10 +114,16 @@ namespace ClinetContact
         }
         static async Task DeleteContact()
         {
+           /* if (!CheckApiKey(ApiKey))
+            {
+                Console.WriteLine("Unauthorized! Please provide a valid API Key.");
+                return;
+            }*/
+
             Console.WriteLine("Enter contact ID to delete:");
             int idToDelete = int.Parse(Console.ReadLine());
 
-            var response = await client.DeleteAsync($"https://localhost:7101/api/Contact/{idToDelete}");
+            var response = await client.DeleteAsync($"https://localhost:44333/api/users/{idToDelete}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -113,6 +139,12 @@ namespace ClinetContact
 
         static async Task UpdateContact()
         {
+            /*if (!CheckApiKey(ApiKey))
+            {
+                Console.WriteLine("Unauthorized! Please provide a valid API Key.");
+                return;
+            }*/
+
             Console.WriteLine("Enter contact ID to update:");
             int contactId = int.Parse(Console.ReadLine());
 
@@ -140,7 +172,7 @@ namespace ClinetContact
             var json = JsonConvert.SerializeObject(contact);
             var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync($"https://localhost:7101/api/Contact/{contactId}", content);
+            var response = await client.PutAsync($"https://localhost:44333/api/users/{contactId}", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -156,10 +188,16 @@ namespace ClinetContact
 
         static async Task RetrieveContact()
         {
+            /*if (!CheckApiKey(ApiKey))
+            {
+                Console.WriteLine("Unauthorized! Please provide a valid API Key.");
+                return;
+            }*/
+
             Console.WriteLine("Enter contact ID to retrieve:");
             int contactId = int.Parse(Console.ReadLine());
 
-            string apiUrl = $"https://localhost:7101/api/Contact/{contactId}";
+            string apiUrl = $"https://localhost:44333/api/users/{contactId}";
 
             var getResponse = await client.GetAsync(apiUrl);
 
@@ -174,21 +212,27 @@ namespace ClinetContact
             }
             Console.ReadLine();
         }
-       static async Task RetrieveAllContacts()
-{
-    var response = await client.GetAsync("https://localhost:7101/api/Contact");
+        static async Task RetrieveAllContacts()
+        {
+           /* if (!CheckApiKey(ApiKey))
+            {
+                Console.WriteLine("Unauthorized! Please provide a valid API Key.");
+                return;
+            }*/
 
-    if (response.IsSuccessStatusCode)
-    {
-        var responseBody = await response.Content.ReadAsStringAsync();
-        Console.WriteLine($"All Contacts data: {responseBody}");
-    }
-    else
-    {
-        Console.WriteLine($"Failed to retrieve all contacts. Status code: {response.StatusCode}");
-    }
-    Console.ReadLine();
-}
+            var response = await client.GetAsync("https://localhost:44333/api/users");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseBody = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"All Contacts data: {responseBody}");
+            }
+            else
+            {
+                Console.WriteLine($"Failed to retrieve all contacts. Status code: {response.StatusCode}");
+            }
+            Console.ReadLine();
+        }
 
 
 
