@@ -31,7 +31,7 @@ namespace ClinetContact
                 switch (choice)
                 {
                     case 1:
-                        await AddContact();
+                        await AddUser();
                         break;
                     case 2:
                         await DeleteContact();
@@ -68,7 +68,7 @@ namespace ClinetContact
 
 
         // الدالة لإضافة جهة اتصال جديدة
-        static async Task AddContact()
+        static async Task AddUser()
         {
            /* if (!CheckApiKey(ApiKey))
             {
@@ -76,31 +76,46 @@ namespace ClinetContact
                 return;
             }*/
 
-            Console.WriteLine("Enter first name:");
-            string firstName = Console.ReadLine();
-
-            Console.WriteLine("Enter last name:");
-            string lastName = Console.ReadLine();
+            Console.WriteLine("Enter  UserName:");
+            string UserName = Console.ReadLine();
 
             Console.WriteLine("Enter email:");
             string email = Console.ReadLine();
 
+            Console.WriteLine("Enter IsActive:");
+            string isActiveInput = Console.ReadLine();
+            bool IsActive = bool.Parse(isActiveInput);
+
+
             Console.WriteLine("Enter phone number:");
             string phoneNumber = Console.ReadLine();
 
-            var newContact = new
+            Console.WriteLine("Enter User Group ID:");
+            string userGroupIdInput = Console.ReadLine();
+            int UserGroupId = int.Parse(userGroupIdInput);
+
+            Console.WriteLine("Enter Password:");
+            string Password = Console.ReadLine();
+
+            Console.WriteLine("Enter ConfirmPassword:");
+            string ConfirmPassword = Console.ReadLine();
+
+
+            var newUser = new
             {
-                contactId = 1,
-                firstName,
-                lastName,
+                UserName,
+                IsActive,
                 email,
-                phoneNumber
+                phoneNumber,
+                UserGroupId,
+                Password,
+                ConfirmPassword
             };
 
             string url = "https://localhost:44333/api/users";
-            var content = new StringContent(JsonConvert.SerializeObject(newContact), System.Text.Encoding.UTF8, "application/json");
+            var user = new StringContent(JsonConvert.SerializeObject(newUser), System.Text.Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync(url, content);
+            var response = await client.PostAsync(url, user);
 
             if (response.IsSuccessStatusCode)
             {
