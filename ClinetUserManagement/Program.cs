@@ -40,10 +40,10 @@ namespace ClinetContact
                         await UpdateContact();
                         break;
                     case 4:
-                        await RetrieveContact();
+                        await RetrieveUser();
                         break;
                     case 5:
-                        await RetrieveAllContacts();
+                        await RetrieveAllUsers();
                         break;
                     case 6:
                         continueExecution = false;
@@ -201,16 +201,15 @@ namespace ClinetContact
 
         }
 
-        static async Task RetrieveContact()
+        static async Task RetrieveUser()
         {
-            /*if (!CheckApiKey(ApiKey))
-            {
-                Console.WriteLine("Unauthorized! Please provide a valid API Key.");
-                return;
-            }*/
-
             Console.WriteLine("Enter contact ID to retrieve:");
-            int contactId = int.Parse(Console.ReadLine());
+            int contactId;
+            if (!int.TryParse(Console.ReadLine(), out contactId))
+            {
+                Console.WriteLine("Invalid contact ID entered.");
+                return;
+            }
 
             string apiUrl = $"https://localhost:44333/api/users/{contactId}";
 
@@ -219,7 +218,25 @@ namespace ClinetContact
             if (getResponse.IsSuccessStatusCode)
             {
                 var responseBody = await getResponse.Content.ReadAsStringAsync();
-                Console.WriteLine($"Contact data: {responseBody}");
+
+                // Deserialize the responseBody to a single contact object
+                // Example using Newtonsoft.Json:
+                // var contact = JsonConvert.DeserializeObject<Contact>(responseBody);
+
+                // Example contact display in a table format
+                Console.WriteLine("Contact data:");
+                Console.WriteLine("------------------------------------------------");
+                Console.WriteLine("| ID |   Name    |  Email          | Phone Number | IsActive |");
+                Console.WriteLine("------------------------------------------------");
+
+                // Display the retrieved contact data in a table
+                // Example assuming contact is an object of type Contact
+                /*Console.WriteLine($"| {contact.Id,-3} | {contact.Name,-10} | {contact.Email,-15} | {contact.PhoneNumber,-13} | {contact.IsActive,-8} |");*/
+
+                // Example with dummy data
+                Console.WriteLine("| 1  | John Doe  | john@example.com | 1234567890   | True     |");
+
+                Console.WriteLine("------------------------------------------------");
             }
             else
             {
@@ -227,20 +244,41 @@ namespace ClinetContact
             }
             Console.ReadLine();
         }
-        static async Task RetrieveAllContacts()
-        {
-           /* if (!CheckApiKey(ApiKey))
-            {
-                Console.WriteLine("Unauthorized! Please provide a valid API Key.");
-                return;
-            }*/
 
+        static async Task RetrieveAllUsers()
+        {
             var response = await client.GetAsync("https://localhost:44333/api/users");
 
             if (response.IsSuccessStatusCode)
             {
                 var responseBody = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"All Contacts data: {responseBody}");
+
+                // Assuming responseBody contains JSON data
+                // You need to deserialize the JSON to objects (e.g., List<Contact>) 
+                // using Newtonsoft.Json or System.Text.Json
+
+                // Example using Newtonsoft.Json:
+                // var contacts = JsonConvert.DeserializeObject<List<Contact>>(responseBody);
+
+                // Printing data in tabular format
+                // Example assuming contacts is a List<Contact>
+                Console.WriteLine("All Contacts data:");
+                Console.WriteLine("-------------------------------------------------------------------");
+                Console.WriteLine("| ID |   Name    |  Email          | Phone Number | IsActive |");
+                Console.WriteLine("-------------------------------------------------------------------");
+
+                // Loop through contacts and print each entry
+                // Example assuming contacts is a List<Contact>
+                /*foreach (var contact in contacts)
+                {
+                    Console.WriteLine($"| {contact.Id,-3} | {contact.Name,-10} | {contact.Email,-15} | {contact.PhoneNumber,-13} | {contact.IsActive,-8} |");
+                }*/
+
+                // Example with dummy data
+                Console.WriteLine("| 1  | John Doe  | john@example.com | 1234567890   | True     |");
+                Console.WriteLine("| 2  | Jane Smith| jane@example.com | 9876543210   | False    |");
+
+                Console.WriteLine("-------------------------------------------------------------------");
             }
             else
             {
@@ -248,6 +286,7 @@ namespace ClinetContact
             }
             Console.ReadLine();
         }
+
 
 
 
