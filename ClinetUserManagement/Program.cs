@@ -222,7 +222,7 @@ namespace ClinetContact
 
                 // Deserialize the responseBody to a single contact object
                 // Example using Newtonsoft.Json:
-                // var contact = JsonConvert.DeserializeObject<Contact>(responseBody);
+                 var user = JsonConvert.DeserializeObject<User>(responseBody);
 
                 // Example contact display in a table format
                 Console.WriteLine("Contact data:");
@@ -232,10 +232,10 @@ namespace ClinetContact
 
                 // Display the retrieved contact data in a table
                 // Example assuming contact is an object of type Contact
-                /*Console.WriteLine($"| {contact.Id,-3} | {contact.Name,-10} | {contact.Email,-15} | {contact.PhoneNumber,-13} | {contact.IsActive,-8} |");*/
+                Console.WriteLine($"| {user.UserName,-10} | {user.Email,-15} | {user.IsActive,-3} | {user.UserGroupId,-3} | {user.IsActive,-8} |");
 
                 // Example with dummy data
-                Console.WriteLine("| 1  | John Doe  | john@example.com | 1234567890   | True     |");
+                /* Console.WriteLine("| 1  | John Doe  | john@example.com | 1234567890   | True     |");*/
 
                 Console.WriteLine("------------------------------------------------");
             }
