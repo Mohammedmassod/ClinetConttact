@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using ClinetUser;
 
 namespace ClinetContact
 {
@@ -253,36 +254,32 @@ namespace ClinetContact
             {
                 var responseBody = await response.Content.ReadAsStringAsync();
 
-                // Assuming responseBody contains JSON data
-                // You need to deserialize the JSON to objects (e.g., List<Contact>) 
-                // using Newtonsoft.Json or System.Text.Json
-
+                // Deserialize the responseBody to a list of user objects
                 // Example using Newtonsoft.Json:
-                // var contacts = JsonConvert.DeserializeObject<List<Contact>>(responseBody);
+                 var users = JsonConvert.DeserializeObject<List<User>>(responseBody);
 
-                // Printing data in tabular format
-                // Example assuming contacts is a List<Contact>
-                Console.WriteLine("All Contacts data:");
+                // Example user display in a table format
+                Console.WriteLine("All Users data:");
                 Console.WriteLine("-------------------------------------------------------------------");
                 Console.WriteLine("| ID |   Name    |  Email          | Phone Number | IsActive |");
                 Console.WriteLine("-------------------------------------------------------------------");
 
-                // Loop through contacts and print each entry
-                // Example assuming contacts is a List<Contact>
-                /*foreach (var contact in contacts)
+                // Display the retrieved user data in a table
+                // Example assuming users is a List<User>
+                foreach (var user in users)
                 {
-                    Console.WriteLine($"| {contact.Id,-3} | {contact.Name,-10} | {contact.Email,-15} | {contact.PhoneNumber,-13} | {contact.IsActive,-8} |");
-                }*/
+                    Console.WriteLine($"| {user.UserName,-10} | {user.Email,-15} | {user.IsActive,-3} | {user.UserGroupId,-3} | {user.IsActive,-8} |");
+                }
 
                 // Example with dummy data
-                Console.WriteLine("| 1  | John Doe  | john@example.com | 1234567890   | True     |");
-                Console.WriteLine("| 2  | Jane Smith| jane@example.com | 9876543210   | False    |");
+               /* Console.WriteLine("| 1  | John Doe  | john@example.com | 1234567890   | True     |");
+                Console.WriteLine("| 2  | Jane Smith| jane@example.com | 9876543210   | False    |");*/
 
                 Console.WriteLine("-------------------------------------------------------------------");
             }
             else
             {
-                Console.WriteLine($"Failed to retrieve all contacts. Status code: {response.StatusCode}");
+                Console.WriteLine($"Failed to retrieve all users. Status code: {response.StatusCode}");
             }
             Console.ReadLine();
         }
